@@ -1,18 +1,8 @@
-# Credit-Risk-Analysis-using-SQL
-
-Perfect! Based on the SQL queries in your uploaded file and your request to use the structure from your Restaurant Orders Analysis project, here is the complete `README.md` for your **Credit Risk SQL Analysis** project — matching your past format:
-
----
-
-# 💳 Credit Risk SQL Analysis (SQL Project)
-
----
-
 ## 1. 📌 Project Title
 
 **Credit Risk SQL Analysis**
 
----
+
 
 ## 2. 📄 Project Overview
 
