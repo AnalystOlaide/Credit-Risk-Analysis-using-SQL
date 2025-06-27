@@ -116,11 +116,13 @@ ORDER BY applications_count DESC;
 
 **Which loan purposes have the highest and lowest average credit scores?**
 
-![WhatsApp Image 2025-06-23 at 09 58 42_34546d59](https://github.com/user-attachments/assets/ea5e7e36-d2ad-4b54-9c7d-56a180d546ed)
-
 -- Highest
 
-SELECT purpose, AVG(credit_score) AS avg_credit_score
+![image](https://github.com/user-attachments/assets/efeb050d-881a-438d-919f-bf4fa0d6a1d0)
+
+SELECT 
+purpose, 
+ROUND(AVG(credit_score), 0) AS avg_credit_score
 FROM credit_applications
 GROUP BY purpose
 ORDER BY avg_credit_score DESC
@@ -128,11 +130,16 @@ LIMIT 1;
 
 -- Lowest
 
-SELECT purpose, AVG(credit_score) AS avg_credit_score
+![image](https://github.com/user-attachments/assets/dc4277b4-7832-470e-a381-3c652136936f)
+
+SELECT 
+purpose, 
+ROUND(AVG(credit_score), 0) AS avg_credit_score
 FROM credit_applications
 GROUP BY purpose
-ORDER BY avg_credit_score 
+ORDER BY avg_credit_score
 LIMIT 1;
+
 
 ### 🔁 6. Late Payment Analysis
 
