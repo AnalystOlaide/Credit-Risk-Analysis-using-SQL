@@ -1,12 +1,12 @@
 ## Credit Risk SQL Analysis
 
 
-## 2. 📄 Project Overview
+## 📄 Project Overview
 
 This project analyzes the credit application and repayment behavior of customers from a fictional credit-lending institution. It answers business-critical questions around **loan approvals**, **repayment patterns**, **cumulative risk exposure**, and **data quality** using advanced SQL techniques. The goal is to help the credit company **identify risk-prone customers**, **track loan performance**, and **optimize approval decisions**.
 
 
-## 3. ❓ Problem Statement
+## ❓ Problem Statement
 
 Credit lenders must proactively evaluate **applicant reliability** and **repayment behavior** to avoid loan defaults. This project uses structured data to provide insights such as:
 
@@ -15,7 +15,7 @@ Credit lenders must proactively evaluate **applicant reliability** and **repayme
 * Which customers have built a strong repayment record over time?
 
 
-## 🗂 Data Source
+## Data Source
 
 **Tables Used:**
 
@@ -23,14 +23,14 @@ Credit lenders must proactively evaluate **applicant reliability** and **repayme
 * `payment_history`: Contains all customer payments with date, amount, and late status
 
 
-## 🧰 Tools Used
+## Tools Used
 
 * **Database**: PostgreSQL
 * **Techniques**:
   `JOIN`, `GROUP BY`, `ORDER BY`, `CASE`, `EXTRACT`, `DATE_TRUNC`, `WINDOW FUNCTIONS`, `UPDATE`, `IS NULL`, `LIKE`
 
 
-## 📊 Business Questions & SQL Queries
+## Business Questions & SQL Queries
 
 **Viewing the tables**
 SELECT *
