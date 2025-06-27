@@ -356,3 +356,107 @@ UPDATE credit_applications
 SET loan_status = 'Pending Review'
 WHERE loan_status = 'Rejected' AND credit_score > 700;
 
+# Credit Risk SQL Analysis
+
+---
+
+## 2. Project Overview
+
+This project analyzes the credit application and repayment behavior of customers from a fictional credit-lending institution. It answers business-critical questions around **loan approvals**, **repayment patterns**, **cumulative risk exposure**, and **data quality** using advanced SQL techniques. The goal is to help the credit company **identify risk-prone customers**, **track loan performance**, and **optimize approval decisions**.
+
+---
+
+## 3. Problem Statement
+
+Credit lenders must proactively evaluate **applicant reliability** and **repayment behavior** to avoid loan defaults. This project uses structured data to provide insights such as:
+
+- Who pays late and how often?
+- Which loan types or purposes have high or low approval and credit scores?
+- Which customers have built a strong repayment record over time?
+
+---
+
+## 📌 Key Insights
+
+### 1. Top Earners by Loan Type
+**Howard Padilla**, **Mary Day**, and **Jenifer** are the highest-income customers across loan types. These individuals may represent prime lending candidates for larger or premium loan products.
+
+### 2. Loan Approval Rates by Gender and Loan Type
+Approval trends reveal distinct gender-based patterns across different loan types:
+
+- Auto Loans: Female applicants have a higher approval rate (35%) than males (24%), indicating stronger alignment with approval criteria.
+- Credit Card Loans: Males lead with a 39% approval rate compared to 32% for females.
+- Personal Loans: Males also lead with a 39% approval rate versus 29% for females.
+- Mortgage Loans: Females show stronger approval at 41% versus 35% for males.
+- Education Loans: Only female applicants are present, with an average approval rate of 32%, which may reflect demographic trends or a data limitation.
+
+### 3. Credit Score by Age Group
+- Customers aged 61–70 have the highest average credit score (607), indicating long-term creditworthiness.
+- The 21–30 age group follows with an average score of 582, showing early credit responsibility.
+- Customers aged 31–60 have lower scores (563–567), likely influenced by mortgages, family expenses, and accumulated debt.
+
+**Implication**: Tailor products by age. Offer premium terms to older customers, support younger customers with long-term products, and assist middle-aged applicants with credit improvement solutions.
+
+### 4. Monthly Loan Application Trends
+- October 2023 recorded the highest number of applications (40), likely tied to end-of-year financial planning.
+- Other peak months include February 2024 (37), May 2024 (33), September 2023 (32), and March 2025 (30).
+- June consistently sees low application volume, e.g., June 2023 (8), June 2024 (23), and June 2025 (10), indicating a seasonal trend.
+
+### 5. Credit Score by Loan Purpose
+- Medical loans have the highest average credit score (606), suggesting lower-risk borrowers.
+- Travel loans have the lowest average score (553), indicating potentially higher-risk behavior.
+
+### 6. Late Payment Behavior
+- Customers with the highest number of late payments include Nathaniel, Stephanie, Joseph, Michael, and Elizabeth.
+- These individuals represent repayment risks that may require stricter monitoring or credit limits.
+
+### 7. Cumulative Payments Over Time
+Christina Ortiz has the highest cumulative loan repayment total, reflecting consistent and significant payment behavior.
+
+### 8. Payment Frequency
+- The average number of payments per customer is 7.
+- The top 10 most active loan repayers include:
+  Gabrielle Chambers, Maria Jordan, Breanna Hart MD, Kevin Mejia, William Harris, Jessica Miller, Travis Arnold, Nicole Mason, Dawn Rhodes, and Donald Hernandez.
+
+### 9. Payment Date Range
+- Payments span from 2022 to 2025, showing the dataset covers multiple loan cycles.
+
+### 10. Onboarding Speed
+- Customers take an average of 92 days to make their first payment after loan approval, suggesting delayed repayment initiation.
+
+### 11. Data Quality Issues
+- A total of 913 customer records contain missing, blank, or invalid email/phone numbers, which can hinder communication and follow-up.
+
+### 12. Payment Method Patterns
+- Bank Transfer is the most used payment method, particularly among male customers and for mortgage loans.
+
+### 13. Seasonal Late Payments
+- May has the highest frequency of late payments, followed by April and March, indicating a recurring Q2 repayment challenge.
+
+### 14. Outstanding Balances
+Kristen Ballard currently holds the highest outstanding loan balance, potentially warranting attention from the collections or restructuring team.
+
+
+## ✅ Recommendations
+
+### Credit Strategy
+- Flag customers with late payment rates above 80% for risk management or stricter terms.
+- Promote medical loans and screen travel loan applications more rigorously based on credit score trends.
+- Implement automated re-evaluation of rejected applicants with credit scores above 700.
+
+### Product & Risk Optimization
+- Offer age-targeted financial products:
+  - Premium offerings for customers aged 60+
+  - Credit-building products for ages 21–30
+  - Debt-management tools for ages 31–50
+- Use seasonal insights to schedule campaigns and allocate operational resources.
+
+### Data & Communication
+- Enforce email and phone validation at onboarding to improve data integrity.
+- Prioritize follow-up for customers who delay first payments beyond 60–90 days.
+
+### Customer Engagement
+- Recognize and retain top-paying customers through loyalty programs or rewards.
+- Provide monthly reminders and use preferred payment methods to encourage consistency.
+
+
