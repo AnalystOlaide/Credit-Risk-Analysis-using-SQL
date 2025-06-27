@@ -1,14 +1,10 @@
-## 1. 📌 Project Title
-
-**Credit Risk SQL Analysis**
-
+## Credit Risk SQL Analysis
 
 
 ## 2. 📄 Project Overview
 
 This project analyzes the credit application and repayment behavior of customers from a fictional credit-lending institution. It answers business-critical questions around **loan approvals**, **repayment patterns**, **cumulative risk exposure**, and **data quality** using advanced SQL techniques. The goal is to help the credit company **identify risk-prone customers**, **track loan performance**, and **optimize approval decisions**.
 
----
 
 ## 3. ❓ Problem Statement
 
@@ -18,7 +14,6 @@ Credit lenders must proactively evaluate **applicant reliability** and **repayme
 * Which loan types or purposes have high or low approval and credit scores?
 * Which customers have built a strong repayment record over time?
 
----
 
 ## 🗂 Data Source
 
@@ -27,7 +22,6 @@ Credit lenders must proactively evaluate **applicant reliability** and **repayme
 * `credit_applications`: Contains demographic, loan, and credit information for each customer
 * `payment_history`: Contains all customer payments with date, amount, and late status
 
----
 
 ## 🧰 Tools Used
 
@@ -35,7 +29,6 @@ Credit lenders must proactively evaluate **applicant reliability** and **repayme
 * **Techniques**:
   `JOIN`, `GROUP BY`, `ORDER BY`, `CASE`, `EXTRACT`, `DATE_TRUNC`, `WINDOW FUNCTIONS`, `UPDATE`, `IS NULL`, `LIKE`
 
----
 
 ## 📊 Business Questions & SQL Queries
 
@@ -149,9 +142,7 @@ JOIN payment_history ph ON ca.customer_id = ph.customer_id
 GROUP BY ca.name, ca.customer_id
 ORDER BY total_late_payment DESC
 LIMIT 1;
-```
 
----
 
 ### 📈 7. Cumulative (Rolling) Amount Paid Over Time (Year-over-Year)
 
