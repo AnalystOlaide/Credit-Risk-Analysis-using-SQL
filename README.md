@@ -87,15 +87,15 @@ LIMIT 3;
 
 **What is the approval rate (%) for each gender across different loan types?**
 
-![image](https://github.com/user-attachments/assets/ba044c19-7892-42b6-94fd-58036ab9bd18)
+![image](https://github.com/user-attachments/assets/54f1bd33-d156-4c7d-9491-b38b0d6f7861)
 
 SELECT 
     gender, 
     loan_type,
-    COUNT(CASE WHEN loan_status = 'Approved' THEN 1 END) AS approved_count,
     ROUND(COUNT(CASE WHEN loan_status = 'Approved' THEN 1 END) * 100.0 / COUNT(*), 0) AS Approval_rate
 FROM credit_applications
-GROUP BY gender, loan_type;
+GROUP BY gender, loan_type
+ORDER BY approval_rate DESC;
 
 
 ### 🎯 3. Credit Score by Age Group
@@ -170,58 +170,75 @@ LIMIT 1;
 
 **Which customers have the most late payments and what is their late payment rate?**
 
-![image](https://github.com/user-attachments/assets/3c71d7a1-b8a5-4958-8cab-1dd40994271b)
+![image](https://github.com/user-attachments/assets/e0cf8343-d5b7-4f4b-8fea-f4a8fa1643cf)
 
-SELECT ca.name, ca.customer_id,
-COUNT(*) AS total_payments,
-SUM(CASE WHEN ph.late_payment = TRUE THEN 1 ELSE 0 END) AS total_late_payment,
-ROUND(SUM(CASE WHEN ph.late_payment = TRUE THEN 1 ELSE 0 END)* 100/ COUNT(*),0) AS total_late_payments_pct
+
+
+SELECT 
+    ca.name, 
+    SUM(CASE WHEN ph.late_payment = TRUE THEN 1 ELSE 0 END) AS total_late_payment,
+    ROUND(SUM(CASE WHEN ph.late_payment = TRUE THEN 1 ELSE 0 END) * 100.0 / COUNT(*), 0) AS total_late_payments_pct
 FROM credit_applications ca
 JOIN payment_history ph ON ca.customer_id = ph.customer_id 
-GROUP BY ca.name, ca.customer_id
-ORDER BY  total_late_payment DESC
-LIMIT 1;
+GROUP BY ca.name
+ORDER BY total_late_payment DESC
+LIMIT 5;
 
 
 ### 📈 7. Cumulative (Rolling) Amount Paid Over Time (Year-over-Year)
 
 **What is the cumulative amount paid by each customer over time?**
 
-SELECT 
-  ca.name,
-  EXTRACT(YEAR FROM ph.payment_date) AS payment_year,
-  SUM(SUM(ph.amount_paid)) OVER (
-      PARTITION BY ca.customer_id
-      ORDER BY EXTRACT(YEAR FROM ph.payment_date)
-      ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW
-  ) AS cumulative_amount_paid
-FROM credit_applications ca
-JOIN payment_history ph ON ca.customer_id = ph.customer_id
-GROUP BY ca.name, ca.customer_id, EXTRACT(YEAR FROM ph.payment_date)
-ORDER BY cumulative_amount_paid DESC, payment_year;
+WITH yearly_payments AS (
+    SELECT 
+        ca.customer_id,
+        ca.name,
+        EXTRACT(YEAR FROM ph.payment_date) AS payment_year,
+        SUM(ph.amount_paid) AS yearly_amount
+    FROM credit_applications ca
+    JOIN payment_history ph ON ca.customer_id = ph.customer_id
+    GROUP BY ca.customer_id, ca.name, EXTRACT(YEAR FROM ph.payment_date)
+)
 
-![WhatsApp Image 2025-06-23 at 10 03 15_a41ab4d5](https://github.com/user-attachments/assets/268cd5d4-537a-4014-b997-c72b903a9346)
+SELECT 
+    customer_id,
+    name,
+    payment_year,
+    ROUND(
+        SUM(yearly_amount) OVER (
+            PARTITION BY customer_id
+            ORDER BY payment_year
+            ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW
+        ), 2
+    ) AS cumulative_amount_paid
+FROM yearly_payments
+ORDER BY cumulative_amount_paid DESC
+LIMIT 1;
+
+
+![image](https://github.com/user-attachments/assets/c046e8c3-a333-4d56-8103-202339694f88)
+
 
 
 ### 🔢 8. Payment Frequency
 
 * **What is the average number of payments per customer?**
 
-![WhatsApp Image 2025-06-23 at 11 40 54_a73369bd](https://github.com/user-attachments/assets/2b4b5e93-4540-4e53-8973-3828b8197137)
-
-
+![image](https://github.com/user-attachments/assets/9ffa2581-beea-4aac-aa2d-d73f5a34558d)
 
 SELECT 
-  AVG(payment_count) AS avg_payments_per_customer
+    ROUND(AVG(payment_count),0) AS avg_payments_per_customer
 FROM (
-  SELECT customer_id, COUNT(*) AS payment_count
-  FROM payment_history
-  GROUP BY customer_id
+    SELECT 
+        customer_id,
+        COUNT(*) AS payment_count
+    FROM payment_history
+    GROUP BY customer_id
 ) AS sub;
+* **Who are the top 10 most active loan repayers?**
 
-* **Who are the top 10 most active payers?**
+![image](https://github.com/user-attachments/assets/7c220562-dbb7-4421-b67c-28ec6961da3f)
 
-![WhatsApp Image 2025-06-23 at 11 41 44_0cc588cc](https://github.com/user-attachments/assets/3c6c8e64-efbc-44fc-a18f-4e26807484ad)
 
 SELECT ca.name, ph.customer_id, COUNT(*) AS total_payments
 FROM payment_history ph
@@ -245,31 +262,40 @@ GROUP BY customer_id;
 ### 🚀 10. Onboarding Speed
 
 **How many days does it take (on average) for a customer to make their first payment after application?**
+![image](https://github.com/user-attachments/assets/8bac62f7-a6c6-4660-81f1-afd67f6f9d7b)
 
-![WhatsApp Image 2025-06-23 at 12 07 41_5b3bbb11](https://github.com/user-attachments/assets/4ecf722a-0e8d-4c0f-afc1-e16e05906284)
 
 
-SELECT AVG(first_payment_date - application_date) AS avg_days_to_first_payment
+SELECT 
+    ROUND(AVG(first_payment_date - application_date), 0) AS avg_days_to_first_payment
 FROM (
-  SELECT ca.customer_id,
-         MIN(ca.application_date) AS application_date,
-         MIN(ph.payment_date) AS first_payment_date
-  FROM credit_applications ca
-  JOIN payment_history ph ON ca.customer_id = ph.customer_id
-  GROUP BY ca.customer_id
+    SELECT 
+        ca.customer_id,
+        MIN(ca.application_date) AS application_date,
+        MIN(ph.payment_date) AS first_payment_date
+    FROM credit_applications ca
+    JOIN payment_history ph ON ca.customer_id = ph.customer_id
+    GROUP BY ca.customer_id
 ) AS customer_firsts;
 
 ### 🧼 11. Data Quality Check
 
-**Which customers have missing or invalid emails or phone numbers?**
+**How many customer records have missing, blank, or invalid email or phone number formats?**
 
-![WhatsApp Image 2025-06-23 at 12 13 57_10df2f40](https://github.com/user-attachments/assets/62123519-b5ed-4d8d-85e9-c1642c3cb318)
+![image](https://github.com/user-attachments/assets/44ef98ae-3434-4088-86c1-869e1c6a7e87)
 
-SELECT *
+
+SELECT 
+    COUNT(*) AS invalid_contact_count
 FROM credit_applications
 WHERE 
-    email IS NULL OR TRIM(email) = '' OR email NOT LIKE '%@%.%'  
- OR phone IS NULL OR TRIM(phone) = '' OR phone !~ '^[0-9]{10,}$';
+    email IS NULL
+    OR TRIM(email) = ''
+    OR email NOT LIKE '%@%.%'  
+    OR phone IS NULL
+    OR TRIM(phone) = ''
+    OR phone !~ '^[0-9]{10,}$';
+ 
 
 
 ### 💳 12. Payment Method Analysis
@@ -287,16 +313,16 @@ ORDER BY payment_method_ct DESC;
 
 ### 📆 13. Seasonal Trends
 
-* **Most late payments by month:**
+* **Most late payments by month:** * 
 
-![WhatsApp Image 2025-06-23 at 12 17 29_8e946c00](https://github.com/user-attachments/assets/cbbb2aa8-9c36-4019-8428-11a5eba7fa74)
+![image](https://github.com/user-attachments/assets/eefd5d14-61ba-48b2-84e2-4dbf788bebd4)
 
-SELECT EXTRACT(YEAR FROM payment_date) AS year,
-       EXTRACT(MONTH FROM payment_date) AS month,
-       COUNT(*) AS late_payment_count
+SELECT 
+    EXTRACT(MONTH FROM payment_date) AS month,
+    COUNT(*) AS late_payment_count
 FROM payment_history
 WHERE late_payment = TRUE
-GROUP BY year, month
+GROUP BY EXTRACT(MONTH FROM payment_date)
 ORDER BY late_payment_count DESC;
 
 
@@ -304,17 +330,20 @@ ORDER BY late_payment_count DESC;
 
 **For each customer: loan amount, total paid, late payment count, and balance.**
 
-![WhatsApp Image 2025-06-23 at 12 19 35_8fe13092](https://github.com/user-attachments/assets/4071b464-355e-4c11-ab0f-d390e5d12e4c)
+![image](https://github.com/user-attachments/assets/1a0da5bf-db29-4374-8f75-74e49210b210)
+
+
+(First 18 rows)
 
 SELECT
-  ca.customer_id,
-  ca.loan_amount,
-  SUM(ph.amount_paid) AS total_paid,
-  SUM(CASE WHEN ph.late_payment = TRUE THEN 1 ELSE 0 END) AS late_payment_count,
-  ca.loan_amount - SUM(ph.amount_paid) AS current_balance
+    ca.name,
+    ca.loan_amount,
+    SUM(ph.amount_paid) AS total_paid,
+    SUM(CASE WHEN ph.late_payment = TRUE THEN 1 ELSE 0 END) AS late_payment_count,
+    ROUND(ca.loan_amount - SUM(ph.amount_paid), 0) AS current_balance
 FROM credit_applications ca
 LEFT JOIN payment_history ph ON ca.customer_id = ph.customer_id
-GROUP BY ca.customer_id, ca.loan_amount;
+GROUP BY ca.name, ca.loan_amount;
 
 ### 🔄 15. Credit Score Adjustment Simulation
 
