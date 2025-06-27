@@ -8,12 +8,37 @@ This project analyzes the credit application and repayment behavior of customers
 
 ## ❓ Problem Statement
 
-Credit lenders must proactively evaluate **applicant reliability** and **repayment behavior** to avoid loan defaults. This project uses structured data to provide insights such as:
+A fictional credit-lending institution seeks to better understand its customer base, evaluate loan approval patterns, and identify potential financial risks through detailed SQL-driven analysis.
 
-* Who pays late and how often?
-* Which loan types or purposes have high or low approval and credit scores?
-* Which customers have built a strong repayment record over time?
+## 🎯 Key Business Questions
 
+1. **Customer Profiling**
+   - Who are the top earners per loan type?
+   - What’s the average credit score by age group?
+   - Which records have invalid contact details?
+
+2. **Loan Analysis**
+   - What’s the approval rate by gender and loan type?
+   - Which loan purposes have the best/worst credit scores?
+   - How many applications were submitted monthly in the last 2 years?
+
+3. **Payment Behavior**
+   - How soon do customers make their first payment?
+   - Who are the most frequent late payers?
+   - When do late payments peak (monthly/quarterly)?
+
+4. **Repayment Tracking**
+   - How much has each customer paid over time?
+   - What’s each customer’s current balance?
+   - What are the first and most recent payment dates?
+
+5. **Operational Insights**
+   - What are the most used payment methods by gender/loan type?
+   - Which rejected applicants should be reconsidered?
+
+6. **Engagement & Retention**
+   - What’s the average number of payments per customer?
+   - Who are the top 10 most active payers?
 
 ## Data Source
 
