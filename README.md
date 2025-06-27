@@ -33,8 +33,10 @@ Credit lenders must proactively evaluate **applicant reliability** and **repayme
 ## Business Questions & SQL Queries
 
 **Viewing the tables**
+
 SELECT *
 FROM credit_applications;
+
 ![WhatsApp Image 2025-06-23 at 09 38 08_ef7677c2](https://github.com/user-attachments/assets/19c55c23-2bf9-4880-9150-8c0b11e792fd)
 ![WhatsApp Image 2025-06-23 at 09 38 48_35f031d1](https://github.com/user-attachments/assets/0c70b785-6076-463b-98c1-4b79aa1b79af)
 
