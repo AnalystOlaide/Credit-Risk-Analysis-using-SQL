@@ -62,13 +62,16 @@ LIMIT 3;
 
 **What is the approval rate (%) for each gender across different loan types?**
 
-![WhatsApp Image 2025-06-23 at 09 54 08_a851d0a6](https://github.com/user-attachments/assets/81318bb5-cca3-4940-9e1b-93ef750991a4)
+![image](https://github.com/user-attachments/assets/ba044c19-7892-42b6-94fd-58036ab9bd18)
 
-SELECT gender, 
-loan_type,
-COUNT(CASE WHEN loan_status = 'Approved' THEN 1 END) * 100.0 / COUNT(*) AS approval_rate
+SELECT 
+    gender, 
+    loan_type,
+    COUNT(CASE WHEN loan_status = 'Approved' THEN 1 END) AS approved_count,
+    ROUND(COUNT(CASE WHEN loan_status = 'Approved' THEN 1 END) * 100.0 / COUNT(*), 0) AS Approval_rate
 FROM credit_applications
 GROUP BY gender, loan_type;
+
 
 ### 🎯 3. Credit Score by Age Group
 
