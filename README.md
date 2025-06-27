@@ -77,27 +77,29 @@ GROUP BY gender, loan_type;
 
 **What is the average credit score by age ranges (21–30, 31–40, etc.)?**
 
-![WhatsApp Image 2025-06-23 at 09 55 23_125de553](https://github.com/user-attachments/assets/8817d713-1b8c-4127-990e-886c9127dc74)
+![image](https://github.com/user-attachments/assets/037ea314-6b54-48b7-988f-e2b127085c90)
 
 SELECT
 CASE 
-  WHEN EXTRACT(YEAR FROM AGE(dob)) BETWEEN 21 AND 30 THEN '21-30'
-  WHEN EXTRACT(YEAR FROM AGE(dob)) BETWEEN 31 AND 40 THEN '31-40'
-  WHEN EXTRACT(YEAR FROM AGE(dob)) BETWEEN 41 AND 50 THEN '41-50'
-  WHEN EXTRACT(YEAR FROM AGE(dob)) BETWEEN 51 AND 60 THEN '51-60'
-  WHEN EXTRACT(YEAR FROM AGE(dob)) BETWEEN 61 AND 70 THEN '61-70'
-  ELSE '71+'
+    WHEN EXTRACT(YEAR FROM AGE(dob)) BETWEEN 21 AND 30 THEN '21-30'
+    WHEN EXTRACT(YEAR FROM AGE(dob)) BETWEEN 31 AND 40 THEN '31-40'
+    WHEN EXTRACT(YEAR FROM AGE(dob)) BETWEEN 41 AND 50 THEN '41-50'
+    WHEN EXTRACT(YEAR FROM AGE(dob)) BETWEEN 51 AND 60 THEN '51-60'
+    WHEN EXTRACT(YEAR FROM AGE(dob)) BETWEEN 61 AND 70 THEN '61-70'
+    ELSE '71+'
 END AS age_group,
-AVG(credit_score) AS avg_credit_score
+ROUND(AVG(credit_score), 0) AS avg_credit_score
 FROM credit_applications
 GROUP BY age_group
 ORDER BY avg_credit_score DESC;
+
 
 ### 📅 4. Loan Application Trends
 
 **How many applications were submitted monthly in the last 2 years?**
 
 ![WhatsApp Image 2025-06-23 at 09 56 54_66470469](https://github.com/user-attachments/assets/a673e212-f248-4b85-a6cc-c2cda4b4c747)
+
 ![WhatsApp Image 2025-06-23 at 09 57 21_7995a7f3](https://github.com/user-attachments/assets/faab01c9-28d6-4bc5-b732-0d8e024f0d5a)
 
 
