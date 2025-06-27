@@ -119,6 +119,7 @@ ORDER BY applications_count DESC;
 ![WhatsApp Image 2025-06-23 at 09 58 42_34546d59](https://github.com/user-attachments/assets/ea5e7e36-d2ad-4b54-9c7d-56a180d546ed)
 
 -- Highest
+
 SELECT purpose, AVG(credit_score) AS avg_credit_score
 FROM credit_applications
 GROUP BY purpose
@@ -126,6 +127,7 @@ ORDER BY avg_credit_score DESC
 LIMIT 1;
 
 -- Lowest
+
 SELECT purpose, AVG(credit_score) AS avg_credit_score
 FROM credit_applications
 GROUP BY purpose
@@ -135,6 +137,7 @@ LIMIT 1;
 ### 🔁 6. Late Payment Analysis
 
 **Which customers have the most late payments and what is their late payment rate?**
+
 ![WhatsApp Image 2025-06-23 at 10 00 21_16691854](https://github.com/user-attachments/assets/3dec5e24-614f-4732-a3ef-46a1bc9faf5b)
 
 SELECT ca.name, ca.customer_id,
