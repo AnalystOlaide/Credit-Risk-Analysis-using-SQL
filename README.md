@@ -138,16 +138,16 @@ LIMIT 1;
 
 **Which customers have the most late payments and what is their late payment rate?**
 
-![WhatsApp Image 2025-06-23 at 10 00 21_16691854](https://github.com/user-attachments/assets/3dec5e24-614f-4732-a3ef-46a1bc9faf5b)
+![image](https://github.com/user-attachments/assets/3c71d7a1-b8a5-4958-8cab-1dd40994271b)
 
 SELECT ca.name, ca.customer_id,
 COUNT(*) AS total_payments,
 SUM(CASE WHEN ph.late_payment = TRUE THEN 1 ELSE 0 END) AS total_late_payment,
-ROUND(SUM(CASE WHEN ph.late_payment = TRUE THEN 1 ELSE 0 END)* 100.0 / COUNT(*), 2) AS total_late_payments_pct
+ROUND(SUM(CASE WHEN ph.late_payment = TRUE THEN 1 ELSE 0 END)* 100/ COUNT(*),0) AS total_late_payments_pct
 FROM credit_applications ca
 JOIN payment_history ph ON ca.customer_id = ph.customer_id 
 GROUP BY ca.name, ca.customer_id
-ORDER BY total_late_payment DESC
+ORDER BY  total_late_payment DESC
 LIMIT 1;
 
 
