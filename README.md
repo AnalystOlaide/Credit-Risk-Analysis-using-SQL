@@ -124,9 +124,6 @@ FROM credit_applications
 GROUP BY purpose
 ORDER BY avg_credit_score 
 LIMIT 1;
-```
-
----
 
 ### 🔁 6. Late Payment Analysis
 
@@ -148,7 +145,6 @@ LIMIT 1;
 
 **What is the cumulative amount paid by each customer over time?**
 
-```sql
 SELECT 
   ca.name,
   EXTRACT(YEAR FROM ph.payment_date) AS payment_year,
@@ -180,7 +176,6 @@ FROM (
   FROM payment_history
   GROUP BY customer_id
 ) AS sub;
-```
 
 * **Who are the top 10 most active payers?**
 
@@ -192,9 +187,6 @@ JOIN credit_applications ca ON ca.customer_id = ph.customer_id
 GROUP BY ph.customer_id, ca.name
 ORDER BY total_payments DESC
 LIMIT 10;
-```
-
----
 
 ### 🕒 9. Payment Timeliness
 
@@ -207,9 +199,6 @@ MIN(payment_date) AS earliest_payment_date,
 MAX(payment_date) AS most_recent_payment_date
 FROM payment_history
 GROUP BY customer_id;
-```
-
----
 
 ### 🚀 10. Onboarding Speed
 
@@ -227,9 +216,6 @@ FROM (
   JOIN payment_history ph ON ca.customer_id = ph.customer_id
   GROUP BY ca.customer_id
 ) AS customer_firsts;
-```
-
----
 
 ### 🧼 11. Data Quality Check
 
