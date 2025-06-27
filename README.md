@@ -356,26 +356,6 @@ UPDATE credit_applications
 SET loan_status = 'Pending Review'
 WHERE loan_status = 'Rejected' AND credit_score > 700;
 
-# Credit Risk SQL Analysis
-
----
-
-## 2. Project Overview
-
-This project analyzes the credit application and repayment behavior of customers from a fictional credit-lending institution. It answers business-critical questions around **loan approvals**, **repayment patterns**, **cumulative risk exposure**, and **data quality** using advanced SQL techniques. The goal is to help the credit company **identify risk-prone customers**, **track loan performance**, and **optimize approval decisions**.
-
----
-
-## 3. Problem Statement
-
-Credit lenders must proactively evaluate **applicant reliability** and **repayment behavior** to avoid loan defaults. This project uses structured data to provide insights such as:
-
-- Who pays late and how often?
-- Which loan types or purposes have high or low approval and credit scores?
-- Which customers have built a strong repayment record over time?
-
----
-
 ## 📌 Key Insights
 
 ### 1. Top Earners by Loan Type
