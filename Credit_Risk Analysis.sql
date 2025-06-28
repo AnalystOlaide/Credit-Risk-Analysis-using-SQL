@@ -1,3 +1,5 @@
+--View tables
+
 SELECT *
 FROM public.credit_applications;
 
@@ -5,14 +7,13 @@ SELECT *
 FROM public.payment_history;
 
 -- Which 3 customers have the highest income for each loan type?
--- ANS: Howard Padilla, Mary Day and Jenifer
+
 SELECT name, income, loan_type
 FROM credit_applications
 ORDER BY loan_type DESC
 LIMIT 3;
 
 -- What is the loan approval rate (%) for each gender across different loan types?
----
 
 SELECT 
     gender, 
@@ -51,7 +52,9 @@ GROUP BY application_month
 ORDER BY applications_count DESC;
 
 -- Which loan purpose has the highest and lowest average credit scores?
+
 --Highest
+
 SELECT 
 purpose, 
 ROUND(AVG(credit_score), 0) AS avg_credit_score
@@ -59,6 +62,9 @@ FROM credit_applications
 GROUP BY purpose
 ORDER BY avg_credit_score DESC
 LIMIT 1;
+
+--Lowest
+
 SELECT 
 purpose, 
 ROUND(AVG(credit_score), 0) AS avg_credit_score
@@ -108,6 +114,7 @@ ORDER BY cumulative_amount_paid DESC
 LIMIT 1;
 
 --What is the average number of payments per customer, and Who are the top 10 most active loan repayers?
+
 -- 1. Average number of payments per customer
 SELECT 
     ROUND(AVG(payment_count),0) AS avg_payments_per_customer
@@ -192,7 +199,6 @@ FROM payment_history
 WHERE late_payment = TRUE
 GROUP BY EXTRACT(MONTH FROM payment_date)
 ORDER BY late_payment_count DESC;
-
 
 
 -- For each customer, display the loan amount, total paid amount, count of late payments, and current balance.
